@@ -1,3 +1,5 @@
+import math
+
 def get_slope(start_x, start_y, end_x, end_y):
 	if end_x == start_x:
 		return float("inf")
@@ -42,3 +44,20 @@ def jitteryLine(start_x, start_y, end_x, end_y, max_height=3, x_step=1, y_step=1
 		line(x, y, next_x, next_y)
 		y = next_y
 		x = next_x
+
+
+
+
+def jitteryCircle(center_x, center_y, radius, turns = 1):
+	x = None
+	y = None
+	for angle in range(0, (360 * turns) + 1) :
+		next_x = int(round(center_x + radius*math.cos(radians(angle))))
+		next_y = int(round(center_y + radius*math.sin(radians(angle))))
+		if x is None or y is None:
+			x = next_x
+			y = next_y
+			continue
+		jitteryLine(x, y, next_x, next_y)
+		x = next_x
+		y = next_y
