@@ -1,4 +1,6 @@
 def get_slope(start_x, start_y, end_x, end_y):
+	if end_x == start_x:
+		return float("inf")
 	return (float(end_y - start_y) / (end_x - start_x))
 
 def get_y_of_line(start_x, start_y, end_x, end_y, x, slope = None, y = 0):
@@ -13,10 +15,20 @@ def jitteryLine(start_x, start_y, end_x, end_y, max_height=3, x_step=1, y_step=1
 	x = start_x
 	slope = get_slope(start_x, start_y, end_x, end_y)
 	perpendicularSlope = -1/slope if slope != 0.0 else float("inf")
-	for scan_x in range(start_x, end_x - x_step + 1, x_step):
+	
+	start = start_x
+	end = end_x - x_step + 1
+
+	if start == end:
+		end = end + 1
+
+	if end < start:
+		start, end = end, start
+	
+	for scan_x in range(start, end, x_step):
 		next_straight_x = scan_x + x_step
 		next_straight_y = get_y_of_line(start_x, start_y, end_x, end_y, next_straight_x, slope)
-
+		
 		next_x = next_straight_x
 		next_y = next_straight_y
 	
