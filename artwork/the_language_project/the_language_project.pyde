@@ -16,12 +16,14 @@ def get_x(grid, point):
 def get_y(grid, point):
         return grid[point][1]
 
+def render_grid(x, y):
+        stroke(255)
+        for grid in get_play_grid(x,y):
+                line(get_x(grid, 0), get_y(grid, 0), get_x(grid, 1), get_y(grid, 1))
+                line(get_x(grid, 1), get_y(grid, 1), get_x(grid, 2), get_y(grid, 2))
+                line(get_x(grid, 2), get_y(grid, 2), get_x(grid, 3), get_y(grid, 3))
+                line(get_x(grid, 3), get_y(grid, 3), get_x(grid, 0), get_y(grid, 0))
+
 size(300, 300)
 background(0)
-stroke(255)
-for grid in get_play_grid(150,150):
-        print(grid)
-        line(get_x(grid, 0), get_y(grid, 0), get_x(grid, 1), get_y(grid, 1))
-        line(get_x(grid, 1), get_y(grid, 1), get_x(grid, 2), get_y(grid, 2))
-        line(get_x(grid, 2), get_y(grid, 2), get_x(grid, 3), get_y(grid, 3))
-        line(get_x(grid, 3), get_y(grid, 3), get_x(grid, 0), get_y(grid, 0))
+render_grid(20, 20)
