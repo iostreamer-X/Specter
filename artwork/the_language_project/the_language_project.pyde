@@ -1,14 +1,19 @@
 atomic_grid_size = 30
+grid_count = 9
+def get_grid(x, y, grid_num, size = atomic_grid_size):
+    return ((x, y, grid_num), (x + size, y, grid_num), (x + size, y + size, grid_num), (x, y + size, grid_num))
 
-def get_grid(x, y, size = atomic_grid_size):
-    return ((x, y), (x + size, y), (x + size, y + size), (x, y + size))
+def get_grid_by_num(grid, num):
+        if not isinstance(grid, list):
+                return grid
+        tagged_grid = filter(lambda tuple: tuple[0][2] is num, grid)[0]
+        return tagged_grid
 
 def get_play_grid(x, y):
-    grid_count = 9
     max_pos = int(pow(grid_count, 0.5))
     grids = []
     for grid_num in range(0, grid_count):
-        grids.append(get_grid(x + atomic_grid_size*(grid_num % max_pos), y + atomic_grid_size*(grid_num / max_pos)))
+        grids.append(get_grid(x + atomic_grid_size*(grid_num % max_pos), y + atomic_grid_size*(grid_num / max_pos), grid_num))
     return grids
 
 def get_x(grid, point):
@@ -44,6 +49,5 @@ def get_flattened_grid(grid):
 
 size(300, 300)
 background(0)
-render_grid(get_flattened_grid(get_play_grid(20, 30)))
-render_play_grid(20, 30)
+render_grid(get_grid_by_num(get_play_grid(20, 30), 2))
 alphabets = []
