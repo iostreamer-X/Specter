@@ -33,8 +33,10 @@ function renderEnitites(entities) {
 				continue;
 			}
 			entity.repel(foreignEntity).forEach(force => foreignEntity.applyForce(force));
+			foreignEntity.update();
+			foreignEntity.display();
 		}
-		
+
 		entity.update();
 		entity.display();
 	}
