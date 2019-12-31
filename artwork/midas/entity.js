@@ -20,7 +20,7 @@ class PositionQueue {
 }
 
 class Entity {
-    constructor(x, y, mass, trailLength = 70) {
+    constructor(x, y, mass, trailLength = 700) {
         this.positionQueue = new PositionQueue(trailLength);
         this.position = createVector(x,y);
         this.positionQueue.push(this.position);
@@ -63,7 +63,7 @@ class Entity {
             distance = constrain(distance, 3, 25.0);
             force.normalize();
         
-            const strength = -50 / (Math.pow(distance, 4));
+            const strength = -50 / (Math.pow(distance, 5));
             force.mult(strength);
             forces.push(force);
         }

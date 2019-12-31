@@ -5,9 +5,15 @@ let attractors;
 let entities;
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	entities = new Array(4).fill(null).map(_ => new Entity(random(width/2, width/2 + 50), random(height/2, height/2 + 50), random(2,10)));
-	attractors = new Array(7).fill(null).map(_ => new Attractor(random(width/2+30, width/2 + 150), random(height/2 + 70, height/2 + 250), random(2,10)));
+	entities = new Array(1).fill(null).map(_ => new Entity(random(0, width), random(0, height), random(2,10)));
+	attractors = new Array(300).fill(null).map(_ => new Attractor(random(0, width), random(0, height), random(2,300)));
 	background(backgroundColor);
+}
+
+function keyPressed() {
+	if (keyCode === ENTER) {
+		attractors = new Array(300).fill(null).map(_ => new Attractor(random(0, width), random(0, height), random(2,300)));
+	}
 }
 
 function mousePressed() {
