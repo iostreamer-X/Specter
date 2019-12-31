@@ -24,9 +24,17 @@ function draw() {
 function renderEnitites(entities) {
 	for (const entity of entities) {
 		for (const attractor of attractors) {
+			attractor.display();
 			const force = attractor.attract(entity);
 			entity.applyForce(force);
 		}
+		for (const foreignEntity of entities) {
+			if (foreignEntity === entity) {
+				continue;
+			}
+			entity.repel(foreignEntity).forEach(force => foreignEntity.applyForce(force));
+		}
+		
 		entity.update();
 		entity.display();
 	}

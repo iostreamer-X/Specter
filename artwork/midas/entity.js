@@ -20,11 +20,9 @@ class PositionQueue {
 }
 
 class Entity {
-    constructor(x, y, mass, trailLength = 20) {
+    constructor(x, y, mass, trailLength = 70) {
         this.positionQueue = new PositionQueue(trailLength);
-        this.positionArray = [];
         this.position = createVector(x,y);
-        this.positionArray.push(this.position);
         this.positionQueue.push(this.position);
 
         this.velocity = createVector(0,0);
@@ -40,7 +38,6 @@ class Entity {
     update() {
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        this.positionArray.push(createVector(this.position.x, this.position.y));
         this.positionQueue.push(createVector(this.position.x, this.position.y));
         this.acceleration.mult(0);
     }
@@ -56,5 +53,20 @@ class Entity {
             vertex(position.x, position.y);
         }
         endShape();
+    }
+
+    repel(entity) {
+        const forces = [];
+        for (const position of this.positionQueue.positionArray) {
+            const force = position.copy().sub(entity.position);
+            let distance = force.mag();
+            distance = constrain(distance, 3, 25.0);
+            force.normalize();
+        
+            const strength = -50 / (Math.pow(distance, 4));
+            force.mult(strength);
+            forces.push(force);
+        }
+        return forces;
     }
 }

@@ -18,4 +18,11 @@ class Attractor {
         force.mult(strength);
         return force;
     }
+
+    display() {
+        stroke(255);
+        fill(255, 100);
+
+        point(this.position.x, this.position.y);
+    }
 }
